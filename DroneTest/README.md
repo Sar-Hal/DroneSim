@@ -39,10 +39,11 @@ python main.py
 |-----|--------|
 | ↑ / ↓ | Pitch forward / backward |
 | ← / → | Bank left / right |
-| Space | Ascend |
+| Space | Ascend / auto-hold on release |
 | Shift | Descend |
 | Z / X | Yaw left / right |
 | C | Cycle camera mode |
+| R | Reset drone to spawn |
 
 ---
 

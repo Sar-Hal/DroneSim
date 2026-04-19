@@ -36,7 +36,7 @@ def resolve_tower_collisions(drone, obstacles):
                 random.uniform(-120, 120)
                 * min(1.0, abs(sep_speed) / 10.0)
             )
-            drone.velocity.y = max(drone.velocity.y, 0.8)
+            drone.velocity.y = max(drone.velocity.y, 0.25)
 
 
 def update_obstacles(obstacles, dt):

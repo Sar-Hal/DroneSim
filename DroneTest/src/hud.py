@@ -7,8 +7,8 @@ from ursina import *
 
 
 CONTROLS_TEXT = (
-    "Arrow Keys — move/bank  |  Space — ascend  |  Shift — descend  "
-    "|  Z/X — yaw  |  C — cycle camera"
+    "Arrow Keys - pitch/bank  |  Space - ascend/hold  |  Shift - descend  "
+    "|  Z/X - yaw  |  C - camera  |  R - reset"
 )
 
 

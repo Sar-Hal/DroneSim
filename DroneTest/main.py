@@ -37,40 +37,53 @@ cam_ctrl = CameraController(drone)
 hud      = HUD(drone, cam_ctrl)
 
 
+def reset_drone_state():
+    drone.position = Vec3(0, 6, 0)
+    drone.velocity = Vec3(0, 0, 0)
+    drone.acceleration = Vec3(0, 0, 0)
+    drone.roll = 0
+    drone.pitch = 0
+    drone.roll_vel = 0
+    drone.pitch_vel = 0
+    drone.rotation_y = 0
+
+
 # ── Input ─────────────────────────────────────────────────────
 def input(key):
     if key == 'c':
         cam_ctrl.cycle()
+    if key == 'r':
+        reset_drone_state()
 
 
 # ── Main loop ─────────────────────────────────────────────────
 def update():
     dt = time.dt
 
-    # ── Thrust & attitude control ─────────────────────────
+    # ── Legacy thrust & attitude controls ─────────────────────
     hover = -drone.gravity
     drone.acceleration = Vec3(0, drone.gravity + hover, 0)
 
     if held_keys['up arrow']:
         drone.acceleration += drone.forward * drone.move_power
-        drone.pitch_vel    += 55 * dt
+        drone.pitch_vel += 55 * dt
     if held_keys['down arrow']:
         drone.acceleration -= drone.forward * drone.move_power
-        drone.pitch_vel    -= 55 * dt
+        drone.pitch_vel -= 55 * dt
 
     if held_keys['left arrow']:
         drone.acceleration -= drone.right * drone.move_power * 0.8
-        drone.roll_vel     += 70 * dt
+        drone.roll_vel += 70 * dt
     if held_keys['right arrow']:
         drone.acceleration += drone.right * drone.move_power * 0.8
-        drone.roll_vel     -= 70 * dt
+        drone.roll_vel -= 70 * dt
 
     if held_keys['space']:
         drone.acceleration.y += drone.thrust_power
-    elif held_keys['shift']:
+    elif held_keys['left shift'] or held_keys['shift']:
         drone.acceleration.y -= drone.thrust_power * 0.72
     else:
-        # Altitude hold
+        # Auto altitude hold when throttle keys are released.
         drone.acceleration.y += -drone.velocity.y * drone.altitude_hold_damping
 
     if held_keys['z']:
@@ -78,9 +91,9 @@ def update():
     if held_keys['x']:
         drone.rotation_y += drone.yaw_rate * dt
 
-    # Attitude return-to-level
+    # Return-to-level when no stick input.
     if not held_keys['left arrow'] and not held_keys['right arrow']:
-        drone.roll  *= max(0.0, 1 - dt * 2.3)
+        drone.roll *= max(0.0, 1 - dt * 2.3)
     if not held_keys['up arrow'] and not held_keys['down arrow']:
         drone.pitch *= max(0.0, 1 - dt * 2.3)
 

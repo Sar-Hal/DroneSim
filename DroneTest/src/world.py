@@ -58,8 +58,8 @@ def build_ground():
         model='plane',
         scale=WORLD["ground_scale"],
         color=EC["ground"],
-        texture='white_cube',
-        texture_scale=(90, 90),
+        texture='grass',
+        texture_scale=(42, 42),
         collider='box',
     )
 
@@ -75,6 +75,8 @@ def build_ground_patches(count=45):
             model='plane',
             scale=(w, 1, d),
             position=(x, 0.01, z),
+            texture='grass',
+            texture_scale=(3, 3),
             color=color.rgb(
                 clamp(44 + shade, 10, 255),
                 clamp(130 + shade, 10, 255),
@@ -214,6 +216,7 @@ def build_rocks(count=40):
             scale=(s, s*random.uniform(0.38,0.65), s*random.uniform(0.7,1.3)),
             position=(x, s*0.22, z),
             rotation_y=random.uniform(0, 360),
+            texture='noise',
             color=color.rgb(
                 random.randint(95,145), random.randint(90,135), random.randint(85,130)),
         )
@@ -245,9 +248,9 @@ def build_grass_tufts(count=90):
 
 def build_water_pond():
     Entity(model='plane', scale=(12,1,8), position=(-28, 0.05, 18),
-           color=color.rgb(55, 120, 180), texture='white_cube', texture_scale=(6,4))
+        color=color.rgb(55, 120, 180), texture='noise', texture_scale=(5,3))
     Entity(model='plane', scale=(9,1,5.5), position=(-28, 0.06, 18),
-           color=color.rgb(90, 160, 215))
+        color=color.rgba(110, 175, 225, 175), texture='noise', texture_scale=(3,2))
     for _ in range(16):
         rh = random.uniform(0.7, 1.5)
         Entity(model='cube', scale=(0.07, rh, 0.07),
@@ -265,6 +268,7 @@ def build_path():
     ]
     for x, z, w, d in segments:
         Entity(model='plane', scale=(w, 1, d), position=(x, 0.02, z),
+               texture='noise', texture_scale=(2, 2),
                color=color.rgb(148, 118, 80))
 
 

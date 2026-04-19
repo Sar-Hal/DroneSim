@@ -48,6 +48,8 @@ class Drone(Entity):
         self.max_pitch          = DP["max_pitch"]
         self.collision_radius   = DP["collision_radius"]
         self.bounce_restitution = DP["bounce_restitution"]
+        self.ground_height      = DP["ground_height"]
+        self.max_fall_speed     = DP["max_fall_speed"]
 
         self._build_mesh()
 
@@ -183,21 +185,24 @@ class Drone(Entity):
 
     def spin_props(self, dt):
         """Spin all propeller blades."""
-        spin_speed = max(180, 450 + abs(self.velocity.y) * 40)
+        spin_speed = max(260, 620 + abs(self.velocity.y) * 55)
         for prop in self.props:
             prop.rotation_y += spin_speed * dt
 
     def update_physics(self, dt):
         """Integrate velocity, clamp ground, decay attitude."""
         self.velocity  += self.acceleration * dt
+        self.velocity.y = max(-self.max_fall_speed, self.velocity.y)
         self.velocity  *= max(0.0, 1 - self.linear_drag * dt)
         self.position  += self.velocity * dt
 
         # Ground clamp
-        if self.y < 0.7:
-            self.y = 0.7
+        if self.y < self.ground_height:
+            self.y = self.ground_height
             if self.velocity.y < 0:
-                self.velocity.y = 0
+                self.velocity.y = -self.velocity.y * self.bounce_restitution
+            self.velocity.x *= 0.82
+            self.velocity.z *= 0.82
 
         # Attitude integration & decay
         self.roll  += self.roll_vel  * dt

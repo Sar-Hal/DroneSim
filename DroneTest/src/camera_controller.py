@@ -41,21 +41,25 @@ class CameraController:
             camera.position = lerp(camera.position, desired, dt * CAM["follow_lerp"])
             camera.look_at(target)
             camera.rotation_z = 0
+            camera.fov = lerp(camera.fov, 85, dt * 4)
 
         elif mode == 'top_down':
             desired = d.position + Vec3(0, CAM["top_height"], 0.01)
             camera.position = lerp(camera.position, desired, dt * CAM["follow_lerp"])
             camera.look_at(d.position)
             camera.rotation_z = 0
+            camera.fov = lerp(camera.fov, 78, dt * 4)
 
         elif mode == 'side_follow':
             desired = d.position + d.right * CAM["side_dist"] + Vec3(0, CAM["side_height"], 0)
             camera.position = lerp(camera.position, desired, dt * CAM["follow_lerp"])
             camera.look_at(d.position + d.forward * 2)
             camera.rotation_z = 0
+            camera.fov = lerp(camera.fov, 82, dt * 4)
 
         elif mode == 'first_person':
             desired = d.position + Vec3(0, 0.65, 0)
             camera.position = lerp(camera.position, desired, dt * CAM["fp_lerp"])
             target_rot = Vec3(d.rotation_x, d.rotation_y, 0)
             camera.rotation = lerp(camera.rotation, target_rot, dt * 8)
+            camera.fov = lerp(camera.fov, 94, dt * 5)

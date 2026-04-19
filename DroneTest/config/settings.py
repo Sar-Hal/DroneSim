@@ -20,16 +20,21 @@ WORLD = {
 # ── Drone physics ────────────────────────────────────────────
 DRONE_PHYSICS = {
     "gravity":              -9.81,
-    "linear_drag":          0.90,
-    "angular_drag":         0.86,
-    "altitude_hold_damp":   5.5,
-    "move_power":           14.0,
-    "thrust_power":         21.0,
-    "yaw_rate":             75.0,
-    "max_bank":             28,
-    "max_pitch":            24,
+    "linear_drag":          0.40,
+    "angular_drag":         0.82,
+    "altitude_hold_damp":   0.0,
+    "move_power":           13.5,
+    "thrust_power":         27.0,
+    "yaw_rate":             92.0,
+    "pitch_rate":           90.0,
+    "roll_rate":            110.0,
+    "auto_level_rate":      2.6,
+    "max_bank":             33,
+    "max_pitch":            27,
     "collision_radius":     1.05,
-    "bounce_restitution":   0.62,
+    "bounce_restitution":   0.40,
+    "ground_height":        0.7,
+    "max_fall_speed":       32.0,
 }
 
 # ── Drone look ───────────────────────────────────────────────
@@ -66,11 +71,11 @@ ENV_COLORS = {
 # ── Camera ───────────────────────────────────────────────────
 CAMERA = {
     "modes": ["follow_back", "top_down", "side_follow", "first_person"],
-    "follow_dist":    11,
-    "follow_height":  4.2,
-    "follow_lerp":    5,
+    "follow_dist":    10,
+    "follow_height":  3.6,
+    "follow_lerp":    6,
     "top_height":     28,
-    "side_dist":      10,
+    "side_dist":      9,
     "side_height":    3.6,
-    "fp_lerp":        9,
+    "fp_lerp":        10,
 }
