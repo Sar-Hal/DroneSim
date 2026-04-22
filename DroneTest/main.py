@@ -73,10 +73,10 @@ def update():
 
     if held_keys['left arrow']:
         drone.acceleration -= drone.right * drone.move_power * 0.8
-        drone.roll_vel += 70 * dt
+        drone.roll_vel -= 70 * dt
     if held_keys['right arrow']:
         drone.acceleration += drone.right * drone.move_power * 0.8
-        drone.roll_vel -= 70 * dt
+        drone.roll_vel += 70 * dt
 
     if held_keys['space']:
         drone.acceleration.y += drone.thrust_power
